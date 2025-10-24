@@ -1,10 +1,22 @@
 # Open Agent Builder - Self-Hosted Guide
 
-## Running Without External SaaS Dependencies
+## Status: Infrastructure Ready, Integration In Progress
 
-Open Agent Builder can run in **fully self-hosted mode** without requiring any external SaaS accounts or API keys. This guide shows you how.
+This guide documents the **vision and infrastructure** for running Open Agent Builder without SaaS dependencies. 
 
-## Quick Start (Fully Self-Hosted)
+**Current Status:**
+- ✅ Infrastructure implemented (local storage, optional auth)
+- ✅ Firecrawl alternatives documented  
+- 🚧 API integration in progress
+- 🚧 Component updates in progress
+
+[Track implementation progress →](IMPLEMENTATION_STATUS.md)
+
+## Vision: Running Without External SaaS Dependencies
+
+Open Agent Builder is being designed to run in **fully self-hosted mode** without requiring external SaaS accounts. Here's how it will work:
+
+## Quick Start (Coming Soon)
 
 ### 1. Clone and Install
 
@@ -37,7 +49,7 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) and start building workflows!
 
-## What You Get in Self-Hosted Mode
+## What You'll Get in Self-Hosted Mode
 
 ✅ **Full workflow builder** - Visual drag-and-drop interface  
 ✅ **Local data storage** - All workflows saved in `data/` directory  
@@ -45,9 +57,11 @@ Visit [http://localhost:3000](http://localhost:3000) and start building workflow
 ✅ **AI agent execution** - Full LangGraph workflow engine  
 ✅ **MCP tool support** - Connect to any MCP server  
 
-## Optional Services
+## What's Already Optional: Web Scraping
 
-### Firecrawl (Web Scraping)
+### Firecrawl (Optional Premium Service)
+
+You don't need Firecrawl! Use any of these self-hosted alternatives:
 
 Self-hosted alternatives:
 - **Playwright** - Browser automation (fully self-hosted)

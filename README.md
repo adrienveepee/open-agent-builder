@@ -28,7 +28,7 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines.
 - Data transformation and analysis
 - Web automation with human-in-the-loop approvals
 
-> **🎉 NEW: Fully Self-Hosted Mode!** Open Agent Builder now runs without ANY external SaaS dependencies. No Convex, no Clerk, no Firecrawl required! [See Self-Hosted Guide](docs/SELF_HOSTED.md)
+> **🎉 NEW: Working Towards Fully Self-Hosted Mode!** We're making all SaaS dependencies optional. Firecrawl alternatives are documented, and local storage infrastructure is ready. Convex + Clerk are currently required but have generous free tiers. [See Roadmap](docs/IMPLEMENTATION_STATUS.md) | [Self-Hosted Guide](docs/SELF_HOSTED.md)
 
 > **Note:** This project is actively under development. Some features are still in progress and we welcome contributions and PRs!
 
@@ -57,80 +57,48 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines.
 
 ## Tech Stack
 
-| Technology | Purpose | Required? |
-|-----------|---------|-----------|
+| Technology | Purpose | Status |
+|-----------|---------|--------|
 | **[Next.js 16 (canary)](https://nextjs.org/)** | React framework with App Router | ✅ Required |
 | **[TypeScript](https://www.typescriptlang.org/)** | Type-safe development | ✅ Required |
 | **[LangGraph](https://github.com/langchain-ai/langgraph)** | Workflow orchestration engine | ✅ Required |
 | **[Tailwind CSS](https://tailwindcss.com/)** | UI styling | ✅ Required |
 | **[React Flow](https://reactflow.dev/)** | Visual workflow canvas | ✅ Required |
-| **[Anthropic](https://www.anthropic.com/)/[OpenAI](https://platform.openai.com/)/[Groq](https://groq.com/)** | LLM providers (one required) | ✅ One required |
-| **[Convex](https://convex.dev)** | Real-time database (Optional - use local storage) | ⚙️ Optional |
-| **[Clerk](https://clerk.com)** | Authentication (Optional - single-user mode available) | ⚙️ Optional |
-| **[Firecrawl](https://firecrawl.dev)** | Web scraping (Optional - alternatives available) | ⚙️ Optional |
-| **[E2B](https://e2b.dev)** | Code execution sandbox (Optional) | ⚙️ Optional |
+| **[Anthropic](https://www.anthropic.com/)/[OpenAI](https://platform.openai.com/)/[Groq](https://groq.com/)** | LLM providers | ✅ One required |
+| **[Convex](https://convex.dev)** | Real-time database | 🔶 Required (free tier) - *Working on local storage alternative* |
+| **[Clerk](https://clerk.com)** | Authentication | 🔶 Required (free tier) - *Working on single-user mode* |
+| **[Firecrawl](https://firecrawl.dev)** | Web scraping | ⚙️ Optional - [Alternatives available](docs/SELF_HOSTED.md#firecrawl-web-scraping) |
+| **[E2B](https://e2b.dev)** | Code execution sandbox | ⚙️ Optional |
 
 ---
 
 ## Prerequisites
 
-### Minimum Requirements (Self-Hosted):
+### Required:
 1. **Node.js 18+** installed on your machine
 2. **One LLM API key** - Choose from:
    - [Anthropic](https://console.anthropic.com/) (Recommended for MCP support)
    - [OpenAI](https://platform.openai.com/api-keys)
    - [Groq](https://console.groq.com/)
-
-### Additional Requirements for Cloud Mode:
-3. **Convex account** - [Sign up free](https://convex.dev) (for multi-user mode)
-4. **Clerk account** - [Sign up free](https://clerk.com) (for authentication)
+3. **Convex account** - [Sign up free](https://convex.dev) (generous free tier)
+4. **Clerk account** - [Sign up free](https://clerk.com) (10,000 MAUs free)
 
 ### Optional Services:
 - **Firecrawl API key** - [Get one here](https://firecrawl.dev) (for premium web scraping)
+  - **Alternatives:** Playwright, Puppeteer, Jina AI Reader ([see guide](docs/SELF_HOSTED.md#firecrawl-web-scraping))
 - **E2B API key** - [Get one here](https://e2b.dev) (for sandboxed code execution)
 
-> **Note:** In self-hosted mode, you only need Node.js and an LLM API key to get started!
+> **Note:** We're working to make Convex and Clerk optional with local storage and single-user mode. [Track progress](docs/IMPLEMENTATION_STATUS.md)
 
 ---
 
 ## Installation & Setup
 
-> **💡 Quick Start:** Want to run without external SaaS dependencies? See the [Self-Hosted Guide](docs/SELF_HOSTED.md) for a 5-minute setup with local storage and no authentication required.
+> **💡 Status:** We're working towards fully self-hosted mode! The infrastructure is ready, and Firecrawl is now optional. Convex and Clerk are currently required but both offer generous free tiers. [Track Progress](docs/IMPLEMENTATION_STATUS.md)
 
-### Option 1: Self-Hosted Mode (Recommended for Getting Started)
+### Quick Start (Currently Requires Convex + Clerk)
 
-**No Convex, no Clerk, no Firecrawl needed!**
-
-```bash
-# 1. Clone and install
-git clone https://github.com/firecrawl/open-agent-builder.git
-cd open-agent-builder
-npm install
-
-# 2. Create .env.local with minimal config
-echo "STORAGE_BACKEND=local" >> .env.local
-echo "ENABLE_AUTH=false" >> .env.local
-echo "ANTHROPIC_API_KEY=your-key-here" >> .env.local
-
-# 3. Run
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) - No sign-up required!
-
-**What you get:**
-- ✅ Full workflow builder with all node types
-- ✅ Local file-based storage (data/ directory)
-- ✅ Single-user mode (no login)
-- ✅ All LangGraph features
-- ✅ MCP tool support
-- ✅ API access
-
-[📖 Full Self-Hosted Guide](docs/SELF_HOSTED.md)
-
-### Option 2: Cloud Mode (Multi-User with Real-Time Sync)
-
-For production deployments with multiple users and real-time collaboration:
+Both services have generous free tiers and setup takes ~15 minutes:
 
 ### 1. Clone the Repository
 
