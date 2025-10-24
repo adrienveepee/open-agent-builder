@@ -19,7 +19,7 @@
 
 ## What is Open Agent Builder?
 
-Open Agent Builder is a visual workflow builder for creating AI agent pipelines powered by [Firecrawl](https://firecrawl.dev). Design complex agent workflows with a drag-and-drop interface, then execute them with real-time streaming updates.
+Open Agent Builder is a visual workflow builder for creating AI agent pipelines. Design complex agent workflows with a drag-and-drop interface, then execute them with real-time streaming updates.
 
 **Perfect for:**
 - Web scraping and data extraction workflows
@@ -27,6 +27,8 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines 
 - Automated research and content generation
 - Data transformation and analysis
 - Web automation with human-in-the-loop approvals
+
+> **🎉 NEW: Working Towards Fully Self-Hosted Mode!** We're making all SaaS dependencies optional. Firecrawl alternatives are documented, and local storage infrastructure is ready. Convex + Clerk are currently required but have generous free tiers. [See Roadmap](docs/IMPLEMENTATION_STATUS.md) | [Self-Hosted Guide](docs/SELF_HOSTED.md)
 
 > **Note:** This project is actively under development. Some features are still in progress and we welcome contributions and PRs!
 
@@ -55,38 +57,48 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines 
 
 ## Tech Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **[Firecrawl](https://firecrawl.dev)** | Web scraping API for converting websites into LLM-ready data |
-| **[Next.js 16 (canary)](https://nextjs.org/)** | React framework with App Router for frontend and API routes |
-| **[TypeScript](https://www.typescriptlang.org/)** | Type-safe development across the stack |
-| **[LangGraph](https://github.com/langchain-ai/langgraph)** | Workflow orchestration engine with state management, conditional routing, and human-in-the-loop support |
-| **[Convex](https://convex.dev)** | Real-time database with automatic reactivity for workflows, executions, and user data |
-| **[Clerk](https://clerk.com)** | Authentication and user management with JWT integration |
-| **[Tailwind CSS](https://tailwindcss.com/)** | Utility-first CSS framework for responsive UI |
-| **[React Flow](https://reactflow.dev/)** | Visual workflow builder canvas with drag-and-drop nodes |
-| **[Anthropic](https://www.anthropic.com/)** | Claude AI integration with native MCP support (Claude Haiku 4.5 & Sonnet 4.5) |
-| **[OpenAI](https://platform.openai.com/)** | gpt-5 integration (MCP support coming soon) |
-| **[Groq](https://groq.com/)** | Fast inference for open models (MCP support coming soon) |
-| **[E2B](https://e2b.dev)** | Sandboxed code execution for secure transform nodes |
-| **[Vercel](https://vercel.com)** | Deployment platform with edge functions |
+| Technology | Purpose | Status |
+|-----------|---------|--------|
+| **[Next.js 16 (canary)](https://nextjs.org/)** | React framework with App Router | ✅ Required |
+| **[TypeScript](https://www.typescriptlang.org/)** | Type-safe development | ✅ Required |
+| **[LangGraph](https://github.com/langchain-ai/langgraph)** | Workflow orchestration engine | ✅ Required |
+| **[Tailwind CSS](https://tailwindcss.com/)** | UI styling | ✅ Required |
+| **[React Flow](https://reactflow.dev/)** | Visual workflow canvas | ✅ Required |
+| **[Anthropic](https://www.anthropic.com/)/[OpenAI](https://platform.openai.com/)/[Groq](https://groq.com/)** | LLM providers | ✅ One required |
+| **[Convex](https://convex.dev)** | Real-time database | 🔶 Required (free tier) - *Working on local storage alternative* |
+| **[Clerk](https://clerk.com)** | Authentication | 🔶 Required (free tier) - *Working on single-user mode* |
+| **[Firecrawl](https://firecrawl.dev)** | Web scraping | ⚙️ Optional - [Alternatives available](docs/SELF_HOSTED.md#firecrawl-web-scraping) |
+| **[E2B](https://e2b.dev)** | Code execution sandbox | ⚙️ Optional |
 
 ---
 
 ## Prerequisites
 
-Before you begin, you'll need:
-
+### Required:
 1. **Node.js 18+** installed on your machine
-2. **Firecrawl API key** (Required for web scraping) - [Get one here](https://firecrawl.dev)
-3. **Convex account** - [Sign up free](https://convex.dev)
-4. **Clerk account** - [Sign up free](https://clerk.com)
+2. **One LLM API key** - Choose from:
+   - [Anthropic](https://console.anthropic.com/) (Recommended for MCP support)
+   - [OpenAI](https://platform.openai.com/api-keys)
+   - [Groq](https://console.groq.com/)
+3. **Convex account** - [Sign up free](https://convex.dev) (generous free tier)
+4. **Clerk account** - [Sign up free](https://clerk.com) (10,000 MAUs free)
 
-> **Note:** LLM API keys can be added directly in the UI via Settings → API Keys after setup. For MCP tool support, Anthropic Claude (Haiku 4.5 or Sonnet 4.5) is currently recommended as the default option.
+### Optional Services:
+- **Firecrawl API key** - [Get one here](https://firecrawl.dev) (for premium web scraping)
+  - **Alternatives:** Playwright, Puppeteer, Jina AI Reader ([see guide](docs/SELF_HOSTED.md#firecrawl-web-scraping))
+- **E2B API key** - [Get one here](https://e2b.dev) (for sandboxed code execution)
+
+> **Note:** We're working to make Convex and Clerk optional with local storage and single-user mode. [Track progress](docs/IMPLEMENTATION_STATUS.md)
 
 ---
 
 ## Installation & Setup
+
+> **💡 Status:** We're working towards fully self-hosted mode! The infrastructure is ready, and Firecrawl is now optional. Convex and Clerk are currently required but both offer generous free tiers. [Track Progress](docs/IMPLEMENTATION_STATUS.md)
+
+### Quick Start (Currently Requires Convex + Clerk)
+
+Both services have generous free tiers and setup takes ~15 minutes:
 
 ### 1. Clone the Repository
 
