@@ -19,7 +19,7 @@
 
 ## What is Open Agent Builder?
 
-Open Agent Builder is a visual workflow builder for creating AI agent pipelines powered by [Firecrawl](https://firecrawl.dev). Design complex agent workflows with a drag-and-drop interface, then execute them with real-time streaming updates.
+Open Agent Builder is a visual workflow builder for creating AI agent pipelines. Design complex agent workflows with a drag-and-drop interface, then execute them with real-time streaming updates.
 
 **Perfect for:**
 - Web scraping and data extraction workflows
@@ -27,6 +27,8 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines 
 - Automated research and content generation
 - Data transformation and analysis
 - Web automation with human-in-the-loop approvals
+
+> **🎉 NEW: Fully Self-Hosted Mode!** Open Agent Builder now runs without ANY external SaaS dependencies. No Convex, no Clerk, no Firecrawl required! [See Self-Hosted Guide](docs/SELF_HOSTED.md)
 
 > **Note:** This project is actively under development. Some features are still in progress and we welcome contributions and PRs!
 
@@ -55,38 +57,80 @@ Open Agent Builder is a visual workflow builder for creating AI agent pipelines 
 
 ## Tech Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **[Firecrawl](https://firecrawl.dev)** | Web scraping API for converting websites into LLM-ready data |
-| **[Next.js 16 (canary)](https://nextjs.org/)** | React framework with App Router for frontend and API routes |
-| **[TypeScript](https://www.typescriptlang.org/)** | Type-safe development across the stack |
-| **[LangGraph](https://github.com/langchain-ai/langgraph)** | Workflow orchestration engine with state management, conditional routing, and human-in-the-loop support |
-| **[Convex](https://convex.dev)** | Real-time database with automatic reactivity for workflows, executions, and user data |
-| **[Clerk](https://clerk.com)** | Authentication and user management with JWT integration |
-| **[Tailwind CSS](https://tailwindcss.com/)** | Utility-first CSS framework for responsive UI |
-| **[React Flow](https://reactflow.dev/)** | Visual workflow builder canvas with drag-and-drop nodes |
-| **[Anthropic](https://www.anthropic.com/)** | Claude AI integration with native MCP support (Claude Haiku 4.5 & Sonnet 4.5) |
-| **[OpenAI](https://platform.openai.com/)** | gpt-5 integration (MCP support coming soon) |
-| **[Groq](https://groq.com/)** | Fast inference for open models (MCP support coming soon) |
-| **[E2B](https://e2b.dev)** | Sandboxed code execution for secure transform nodes |
-| **[Vercel](https://vercel.com)** | Deployment platform with edge functions |
+| Technology | Purpose | Required? |
+|-----------|---------|-----------|
+| **[Next.js 16 (canary)](https://nextjs.org/)** | React framework with App Router | ✅ Required |
+| **[TypeScript](https://www.typescriptlang.org/)** | Type-safe development | ✅ Required |
+| **[LangGraph](https://github.com/langchain-ai/langgraph)** | Workflow orchestration engine | ✅ Required |
+| **[Tailwind CSS](https://tailwindcss.com/)** | UI styling | ✅ Required |
+| **[React Flow](https://reactflow.dev/)** | Visual workflow canvas | ✅ Required |
+| **[Anthropic](https://www.anthropic.com/)/[OpenAI](https://platform.openai.com/)/[Groq](https://groq.com/)** | LLM providers (one required) | ✅ One required |
+| **[Convex](https://convex.dev)** | Real-time database (Optional - use local storage) | ⚙️ Optional |
+| **[Clerk](https://clerk.com)** | Authentication (Optional - single-user mode available) | ⚙️ Optional |
+| **[Firecrawl](https://firecrawl.dev)** | Web scraping (Optional - alternatives available) | ⚙️ Optional |
+| **[E2B](https://e2b.dev)** | Code execution sandbox (Optional) | ⚙️ Optional |
 
 ---
 
 ## Prerequisites
 
-Before you begin, you'll need:
-
+### Minimum Requirements (Self-Hosted):
 1. **Node.js 18+** installed on your machine
-2. **Firecrawl API key** (Required for web scraping) - [Get one here](https://firecrawl.dev)
-3. **Convex account** - [Sign up free](https://convex.dev)
-4. **Clerk account** - [Sign up free](https://clerk.com)
+2. **One LLM API key** - Choose from:
+   - [Anthropic](https://console.anthropic.com/) (Recommended for MCP support)
+   - [OpenAI](https://platform.openai.com/api-keys)
+   - [Groq](https://console.groq.com/)
 
-> **Note:** LLM API keys can be added directly in the UI via Settings → API Keys after setup. For MCP tool support, Anthropic Claude (Haiku 4.5 or Sonnet 4.5) is currently recommended as the default option.
+### Additional Requirements for Cloud Mode:
+3. **Convex account** - [Sign up free](https://convex.dev) (for multi-user mode)
+4. **Clerk account** - [Sign up free](https://clerk.com) (for authentication)
+
+### Optional Services:
+- **Firecrawl API key** - [Get one here](https://firecrawl.dev) (for premium web scraping)
+- **E2B API key** - [Get one here](https://e2b.dev) (for sandboxed code execution)
+
+> **Note:** In self-hosted mode, you only need Node.js and an LLM API key to get started!
 
 ---
 
 ## Installation & Setup
+
+> **💡 Quick Start:** Want to run without external SaaS dependencies? See the [Self-Hosted Guide](docs/SELF_HOSTED.md) for a 5-minute setup with local storage and no authentication required.
+
+### Option 1: Self-Hosted Mode (Recommended for Getting Started)
+
+**No Convex, no Clerk, no Firecrawl needed!**
+
+```bash
+# 1. Clone and install
+git clone https://github.com/firecrawl/open-agent-builder.git
+cd open-agent-builder
+npm install
+
+# 2. Create .env.local with minimal config
+echo "STORAGE_BACKEND=local" >> .env.local
+echo "ENABLE_AUTH=false" >> .env.local
+echo "ANTHROPIC_API_KEY=your-key-here" >> .env.local
+
+# 3. Run
+npm run dev
+```
+
+Visit [http://localhost:3000](http://localhost:3000) - No sign-up required!
+
+**What you get:**
+- ✅ Full workflow builder with all node types
+- ✅ Local file-based storage (data/ directory)
+- ✅ Single-user mode (no login)
+- ✅ All LangGraph features
+- ✅ MCP tool support
+- ✅ API access
+
+[📖 Full Self-Hosted Guide](docs/SELF_HOSTED.md)
+
+### Option 2: Cloud Mode (Multi-User with Real-Time Sync)
+
+For production deployments with multiple users and real-time collaboration:
 
 ### 1. Clone the Repository
 
